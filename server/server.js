@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { connect } from 'mongoose';
 import connectDB from './config/mongodb.js';
 
+
 const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
