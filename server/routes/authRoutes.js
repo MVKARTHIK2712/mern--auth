@@ -16,5 +16,4 @@ authRouter.post('/send-reset-otp', sendPasswordResetOtp);
 authRouter.post('/reset-password', resetPassword);
 
 
-
 export default authRouter;
