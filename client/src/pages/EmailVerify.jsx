@@ -44,7 +44,7 @@ const EmailVerify = () => {
 
       const {data}=await axios.post(backendUrl+'/api/auth/verify-account',{otp})
       if(data.succes){
-        toast.succes(data.message)
+        toast.success(data.message)
         await getUserData()
         navigate('/')
       }else{
