@@ -4,6 +4,7 @@ import React from 'react'
 import { toast } from "react-toastify";
 import axios from "axios";
 
+
 export const AppContent=createContext();
 
 export const AppContextProvider=(props)=>{
@@ -15,19 +16,21 @@ export const AppContextProvider=(props)=>{
 
     const getAuthState=async()=>{
         try{
-            const {data}=await axios.get('https://mern-auth-backend-n0ri.onrender.com/api/auth/is-auth')
+            const {data}=await axios.get(backendUrl+'/api/auth/is-auth')
             if(data.succes){
                 setIsLoggedin(true)
                 getUserData()
+                console.log("user is authenticated");
             }
         }
         catch(error){
             toast.error(error.message);
+            console.log("user is not authenticated",error.message);
         }
     }
     const getUserData=async()=>{
         try{
-            const {data}=await axios.get('https://mern-auth-backend-n0ri.onrender.com/api/user/data')
+            const {data}=await axios.get(backendUrl+'/api/user/data')
             data.succes ? setUserData(data.userData):toast.error(data.message)
         }
         catch(error){
