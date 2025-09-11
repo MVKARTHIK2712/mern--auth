@@ -22,11 +22,12 @@ export const register = async(req, res) => {
         const token=jwt.sign({id:user._id}, process.env.JWT_SECRET, {expiresIn:'12d'});
 
         res.cookie('token', token, {
-            httpOnly:true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite:process.env.NODE_ENV==='production'?'none':'strict',
-            maxAge:12*24*60*60*1000
-        })
+          httpOnly: true,
+          secure: true,       // always true in production
+          sameSite: 'none',   // required for frontend-backend on different domains
+          maxAge: 12 * 24 * 60 * 60 * 1000,
+        });
+
         //sending welcome email to new user
         const mailOptions={
             from:process.env.SENDER_EMAIL,
@@ -59,11 +60,12 @@ export const login = async(req, res) => {
         const token=jwt.sign({id:user._id}, process.env.JWT_SECRET, {expiresIn:'12d'});
 
         res.cookie('token', token, {
-            httpOnly:true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite:process.env.NODE_ENV==='production'?'none':'strict',
-            maxAge:12*24*60*60*1000
+          httpOnly: true,
+          secure: true,       
+          sameSite: 'none',   
+          maxAge: 12 * 24 * 60 * 60 * 1000,
         });
+
          return res.json({succes:true});
 
 
@@ -75,10 +77,11 @@ export const login = async(req, res) => {
 
 export const logout = async (req, res) => {
     try{
+        
         res.clearCookie('token', {
-            httpOnly:true,
-            secure:process.env.NODE_ENV==='production',
-            sameSite:process.env.NODE_ENV==='production'?'none':'strict',
+          httpOnly: true,
+          secure: true,
+          sameSite: 'none',
         });
         return res.json({succes:true,message:'Logged out successfully'});
     }
