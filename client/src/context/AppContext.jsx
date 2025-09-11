@@ -15,7 +15,7 @@ export const AppContextProvider=(props)=>{
 
     const getAuthState=async()=>{
         try{
-            const {data}=await axios.get(backendUrl+'/api/auth/is-auth')
+            const {data}=await axios.get('https://mern-auth-backend-n0ri.onrender.com/api/auth/is-auth')
             if(data.succes){
                 setIsLoggedin(true)
                 getUserData()
@@ -27,7 +27,7 @@ export const AppContextProvider=(props)=>{
     }
     const getUserData=async()=>{
         try{
-            const {data}=await axios.get(backendUrl+'/api/user/data')
+            const {data}=await axios.get('https://mern-auth-backend-n0ri.onrender.com/api/user/data')
             data.succes ? setUserData(data.userData):toast.error(data.message)
         }
         catch(error){
