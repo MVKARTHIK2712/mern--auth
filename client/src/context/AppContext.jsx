@@ -35,9 +35,9 @@ export const AppContextProvider=(props)=>{
         }
     }
 
-    useEffect(()=>{
-        getAuthState();
-    },[])
+    // useEffect(()=>{
+    //     getAuthState();
+    // },[])
 
     const value={
         backendUrl,
