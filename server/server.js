@@ -12,12 +12,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 connectDB();
 
-const allowedOrigins=['https://mern-auth-frontend-6ums.onrender.com']
 
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: allowedOrigins,
+  origin: 'https://mern-auth-frontend-6ums.onrender.com',
   credentials: true,
 }));
 
