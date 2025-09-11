@@ -16,7 +16,19 @@ const allowedOrigins=['https://mern-auth-frontend-6ums.onrender.com']
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({origin:allowedOrigins, credentials: true,}));
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin (like Postman, curl)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('CORS not allowed for this origin: ' + origin));
+    }
+  },
+  credentials: true,
+}));
 
 //api end pointss
 app.get('/', (req, res) => {res.send('api working karthik!');});
