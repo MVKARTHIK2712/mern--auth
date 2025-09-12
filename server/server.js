@@ -15,10 +15,27 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://mern-auth-frontend-6ums.onrender.com',
+  'http://localhost:5173',
+  'http://localhost:3000'
+].filter(Boolean);
+
 app.use(cors({
-  origin: 'https://mern-auth-frontend-6ums.onrender.com',
+  origin: function(origin, callback){
+    // allow requests with no origin (curl, mobile apps, Postman)
+    if(!origin) return callback(null, true);
+    if(allowedOrigins.indexOf(origin) !== -1){
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
+
 
 //api end pointss
 app.get('/', (req, res) => {res.send('api working karthik!');});
